@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-  class main {
+ public class main {
 
     public static void main(String[] args)  throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -15,7 +15,7 @@ import java.util.Scanner;
               String oper;
               String result;
               boolean isRoman;
-              String[] operands = input.split("[+ -*/]");
+              String[] operands = input.split("[+\\-*/]");
               if (operands.length != 2) throw new Exception("Должно быть два операнда ");
               oper = detectOperation( input);
               if (oper == null) throw new Exception("Неподдерживаемая математическая операция");
@@ -25,6 +25,7 @@ import java.util.Scanner;
                   num1 = Roman.convertToArabian(operands[0]);
                   num2 = Roman.convertToArabian(operands[1]);
                   isRoman = true;
+
               }
               //если оба числа  арабские
               else if (!Roman.isRoman(operands[0]) && !Roman.isRoman(operands[1])) {
@@ -61,19 +62,30 @@ import java.util.Scanner;
           else if (input.contains("/")) return "/";
           else return null;
     }
-    static int calc(int a, int b, String input) {
-         if  (input.equals("+")) return a + b;
-        else if (input.equals("-")) return a - b;
-        else if (input.equals("*")) return a * b;
-        else   return a / b;
+   public   static int calc(int a, int b, String input) {
+        int result;
+        if (input.equals("+")) {
+            result = a + b;
+        } else if (input.equals("-")) {
+            result = a - b;
+        } else if (input.equals("*")) {
+            result = a * b;
+        } else {
+            result = a / b;
+        }
+        return result;
     }
 
 }
-class Roman {
-    static String[] romanArray = new String[]{"0", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
-            "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXIV", "XXV", "XXVII",
-            "XXVIII", "XXX", "XXXII", "XXXV", "XXXVI", "XL", "XLII", "XLV", "XLIII", "XLIX", "L", "LIV", "LVI", "LX",
-            "LXIII", "LXIV", "LXX", "LXXII", "LXXX", "LXXXI", "XC", "C"};
+    class  Roman {
+    static String[] romanArray = new String[]{"O", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX",
+            "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX", "XL",
+            "XLI", "XLII", "XLIII", "XLIV", "XLV", "XLVI", "XLVII", "XLVIII", "XLIX", "L", "LI", "LII", "LIII", "LIV", "LV", "LVI", "LVII", "LVIII", "LIX", "LX",
+            "LXI", "LXII", "LXIII", "LXIV", "LXV", "LXVI", "LXVII", "LXVIII", "LXIX", "LXX",
+            "LXXI", "LXXII", "LXXIII", "LXXIV", "LXXV", "LXXVI", "LXXVII", "LXXVIII", "LXXIX", "LXXX",
+            "LXXXI", "LXXXII", "LXXXIII", "LXXXIV", "LXXXV", "LXXXVI", "LXXXVII", "LXXXVIII", "LXXXIX", "XC",
+            "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII", "XCVIII", "XCIX", "C"
+    };
 
     public static boolean isRoman(String val) {
         for (int i = 0; i < romanArray.length; i++) {

@@ -13,7 +13,7 @@ public class Main {
         System.out.println("Введите выражение [\"a\" + \"b\", \"a\" - \"b\", \"a\" * x, \"a\" / x] где a и b - строки а x - число  от 1 до 10 включительно  + Enter ");
         String userInput = scanner.nextLine();
         char[] uchar = new char[40];
-        ArrayList<String> strBlock00 = new ArrayList<>(10);
+        ArrayList<String> strock = new ArrayList<>(10);
         for (int i = 0; i < userInput.length(); i++) {
             uchar[i] = userInput.charAt(i);
             if (uchar[i] == '+') {
@@ -102,7 +102,6 @@ public class Main {
                 System.out.println("Неверный знак операции - (введите * или /)");
                 break;
             case '*':
-// 159  При умножении строки на число выводит правильный ответ но впереди null ("a" * 5 = nullaaaaa)?
                 for (int u = 0; u < num; u++) {
                     result = result + num1;
                 }

@@ -9,7 +9,6 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Введите выражение [\"a\" + \"b\", \"a\" - \"b\", \"a\" * x, \"a\" / x] где a и b - строки а x - число  от 1 до 10 включительно  + Enter ");
-//      Считываем строку userInput которую ввёл пользователь
         String userInput = scanner.nextLine();
         operation = metodOperation(userInput);
         globalWork(userInput);
@@ -87,6 +86,7 @@ public class Main {
             default:
                 throw new IllegalArgumentException("Не верный знак операции");
         }
+
         return result;
     }
 
@@ -116,17 +116,22 @@ public class Main {
                     }
                 } catch (ArithmeticException | InputMismatchException e) {
                     System.out.println("Exception : " + e);
-                    System.out.println("Only integer non-zero parameters allowed");
+                    System.out.println("только целые числа");
                     break;
                 } finally {
                     if (num1.length() < num) {
                         System.out.println("Делимое меньше делителя");
                     }
+
                 }
                 break;
             default:
                 throw new IllegalArgumentException("Не верный знак операции");
         }
-        return result;
+        if ((number > 10 || number < 1) || (number > 10 || number < 1)) {
+            throw new IllegalArgumentException("Калькулятор принимает на вход числа от 1 до 10 включительно");
+        }
+        return num1;
     }
 }
+

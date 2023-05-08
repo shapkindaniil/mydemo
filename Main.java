@@ -1,137 +1,67 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
-    static Scanner scanner = new Scanner(System.in);
-    static int number;
-    static char operation;
-    static String result;
-
-    public static void main(String[] args) {
-        System.out.println("Введите выражение [\"a\" + \"b\", \"a\" - \"b\", \"a\" * x, \"a\" / x] где a и b - строки а x - число  от 1 до 10 включительно  + Enter ");
-        String userInput = scanner.nextLine();
-        operation = metodOperation(userInput);
-        globalWork(userInput);
-    }
-
-    private static void globalWork(String userInput) {
-        String[] blocks = userInput.split("[+-/*\"]");
-        if (blocks.length == 5) {
-            String st01 = blocks[1];
-            String st04 = blocks[4];
-            result = calculated(st01, st04, operation);
-            if (result.length() > 40) {
-                String rez = result.substring(0, 40);
-                System.out.println(rez + "...");
-            } else {
-                System.out.println(result);
-            }
-        } else {
-            String st01 = blocks[1];
-            String st03 = blocks[3];
-            number = Integer.parseInt(st03);
-            result = calculated(st01, number, operation);
-            if (result.length() > 40) {
-                String rez = result.substring(0, 40);
-                System.out.println(rez + "...");
-            } else {
-                System.out.println(result);
-            }
-
-        }
-    }
-
-
-    private static char metodOperation(String userInput) {
-        char[] uchar = new char[26];
-        for (int i = 0; i < userInput.length(); i++) {
-            uchar[i] = userInput.charAt(i);
-            if (uchar[i] == '+') {
+    public static void main(String[] args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        String string = scanner.nextLine();
+        char operation;
+        String[] information ;
+            if (string.contains(" + ")) {
+                information = string.split(" \\+ ");
                 operation = '+';
-            }
-            if (uchar[i] == '-') {
+            } else if (string.contains(" - ")) {
+                information = string.split(" - ");
                 operation = '-';
-            }
-            if (uchar[i] == '*') {
+            } else if (string.contains(" * ")) {
+                information = string.split(" \\* ");
                 operation = '*';
-            }
-            if (uchar[i] == '/') {
+            } else if (string.contains(" / ")) {
+                information = string.split(" / ");
                 operation = '/';
+            } else {
+                throw new Exception("Некорректный знак действия");
             }
-        }
-        return operation;
-    }
+            if (operation == '*' || operation == '/') {
+                if (information[1].contains("\"")) throw new Exception("Строчку можно делить или умножать только на число");
+            }
+            for (int i = 0; i < information.length; i++) {
+                information[i] = information[i].replace("\"", "");
+            }
 
-
-    public static String calculated(String num1, String num2, char op) {
-
-        switch (op) {
-            case '+':
-                result = num1 + num2;
-                break;
-            case '-':
-                int resA = num1.length() - num2.length();
-                if (num1.length() == num2.length()) {
-                    result = "0";
+            if (operation == '+') {
+                printIn(information[0] + information[1]);
+            } else if (operation == '*')
+            {
+                int coefficient = Integer.parseInt(information[1]);
+                String result = "";
+                for (int i = 0; i < coefficient; i++) {
+                    result += information[0];
+                }
+                printIn(result);
+            } else if (operation == '-') {
+                int index = information[0].indexOf(information[1]);
+                if (index == -1) {
+                    printIn(information[0]);
                 } else {
-                    result = num1.substring(0, resA);
+                    String result = information[0].substring(0, index);
+                    result += information[0].substring(index + information[1].length());
+                    printIn(result);
                 }
-                break;
-            case '*':
-                System.out.println("Неверный знак операции * (введите + или -)");
-                break;
-            case '/':
-                System.out.println("Неверный знак операции / (введите + или -)");
-                break;
-            default:
-                throw new IllegalArgumentException("Не верный знак операции");
+            } else {
+                int Len = information[0].length() / Integer.parseInt(information[1]);
+                String result = information[0].substring(0, Len);
+                printIn(result);
+            }
+
+
         }
 
-        return result;
-    }
 
 
-    public static String calculated(String num1, int num, char op) {
 
-        switch (op) {
-            case '+':
-                System.out.println("Неверный знак операции + (введите * или /)");
 
-                break;
-            case '-':
-                System.out.println("Неверный знак операции - (введите * или /)");
-                break;
-            case '*':
-                for (int u = 0; u < num; u++) {
-                    result = result + num1;
-                }
-                break;
-            case '/':
-                try {
-                    int resB = num1.length() / num;
-                    if (num1.length() == num) {
-                        result = "1";
-                    } else {
-                        result = num1.substring(0, resB);
-                    }
-                } catch (ArithmeticException | InputMismatchException e) {
-                    System.out.println("Exception : " + e);
-                    System.out.println("только целые числа");
-                    break;
-                } finally {
-                    if (num1.length() < num) {
-                        System.out.println("Делимое меньше делителя");
-                    }
 
-                }
-                break;
-            default:
-                throw new IllegalArgumentException("Не верный знак операции");
-        }
-        if ((number > 10 || number < 1) || (number > 10 || number < 1)) {
-            throw new IllegalArgumentException("Калькулятор принимает на вход числа от 1 до 10 включительно");
-        }
-        return num1;
+     static void printIn(String text) {
+        System.out.println("\"" + text + "\"");
     }
 }
-

@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
+    static String result;
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         String string = scanner.nextLine();
@@ -21,7 +22,15 @@ public class Main {
             } else {
                 throw new Exception("Некорректный знак действия");
             }
-            if (operation == '*' || operation == '/') {
+            if (information.length <= 39) {
+                String inf = result.substring(0,39);
+                System.out.println(inf);
+            } else if (information.length > 39) {
+                String rez = result.substring(0,39);
+                System.out.println(rez + "...");
+
+            }
+        if (operation == '*' || operation == '/') {
                 if (information[1].contains("\"")) throw new Exception("Строчку можно делить или умножать только на число");
             }
             for (int i = 0; i < information.length; i++) {

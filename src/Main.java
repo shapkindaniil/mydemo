@@ -5,7 +5,7 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
     static int number;
     static char operation;
-    static String result ;
+    static String result = "" ;
 
     public static void main(String[] args) throws Exception {
         System.out.println("Введите выражение [\"a\" + \"b\", \"a\" - \"b\", \"a\" * x, \"a\" / x] где a и b - строки а x - число  от 1 до 10 включительно  + Enter ");

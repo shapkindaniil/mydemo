@@ -1,4 +1,5 @@
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -124,15 +125,18 @@ public class Main {
                     } else {
                         result = num1.substring(0, resB);
                     }
-                    System.out.println("Только целые числа");
+                } catch (ArithmeticException | InputMismatchException e) {
+                    System.out.println("Exception : " + e);
+                    System.out.println("только целые числа");
                     break;
-                }finally {
+                } finally {
                     if (num1.length() < num) {
                         System.out.println("Делимое меньше делителя");
                     }
                 }
+                break;
             default:
-                throw new Exception ("Не верный знак операции");
+                throw new IllegalArgumentException("Не верный знак операции");
         }
         return result;
     }
